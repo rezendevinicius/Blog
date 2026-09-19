@@ -1,0 +1,16 @@
+---
+import { getCollection, render } from 'astro:content';
+import LeituraLayout from '../../layouts/LeituraLayout.astro';
+
+export async function getStaticPaths() {
+	const textos = await getCollection('literatura');
+	return textos.map((texto) => ({ params: { slug: texto.id }, props: texto }));
+}
+
+const texto = Astro.props;
+const { Content } = await render(texto);
+---
+
+<LeituraLayout {...texto.data}>
+	<Content />
+</LeituraLayout>
