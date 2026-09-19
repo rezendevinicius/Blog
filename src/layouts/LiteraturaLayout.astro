@@ -1,0 +1,35 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+
+interface Props {
+	title: string;
+	description?: string;
+	pubDate: Date;
+	tipo: string;
+}
+
+const { title, description, pubDate, tipo } = Astro.props;
+---
+
+<html lang="pt-BR">
+	<head>
+		<BaseHead title={title} description={description ?? title} />
+	</head>
+	<body class="bg-stone-50 text-stone-800">
+		<Header />
+		<main class="mx-auto max-w-xl px-4 py-16 font-serif">
+			<header class="mb-10 text-center">
+				<p class="text-sm uppercase tracking-widest text-stone-500">{tipo}</p>
+				<h1 class="mt-2 text-3xl font-semibold sm:text-4xl">{title}</h1>
+				<p class="mt-2 text-sm text-stone-500"><FormattedDate date={pubDate} /></p>
+			</header>
+			<article class="prose prose-lg prose-stone mx-auto">
+				<slot />
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

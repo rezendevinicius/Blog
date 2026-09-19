@@ -1,0 +1,72 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	pubDate: Date;
+	disciplina: string;
+	videoId?: string;
+	headings: { depth: number; slug: string; text: string }[];
+}
+
+const { title, description, pubDate, disciplina, videoId, headings } = Astro.props;
+const indice = headings.filter((h) => h.depth === 2);
+---
+
+<html lang="pt-BR">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body class="bg-stone-50 text-stone-800">
+		<Header />
+		<main class="mx-auto max-w-6xl px-4 py-10">
+			<p class="text-sm font-semibold uppercase tracking-wide text-teal-700">{disciplina}</p>
+			<h1 class="mt-1 text-3xl font-bold sm:text-4xl">{title}</h1>
+			<p class="mt-2 text-sm text-stone-500"><FormattedDate date={pubDate} /></p>
+
+			{
+				videoId && (
+					<div class="mt-8 aspect-video w-full overflow-hidden rounded-xl bg-black">
+						<iframe
+							class="h-full w-full"
+							src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+							title={title}
+							loading="lazy"
+							allowfullscreen
+						/>
+					</div>
+				)
+			}
+
+			<div class="mt-10 grid gap-10 lg:grid-cols-[1fr_16rem]">
+				<article class="prose prose-stone max-w-none">
+					<slot />
+				</article>
+
+				{
+					indice.length > 0 && (
+						<aside class="order-first self-start lg:sticky lg:top-6 lg:order-last">
+							<p class="mb-3 text-sm font-semibold uppercase tracking-wide text-stone-500">
+								Nesta aula
+							</p>
+							<ul class="space-y-2 border-l border-stone-300 pl-4 text-sm">
+								{indice.map((h) => (
+									<li>
+										<a href={`#${h.slug}`} class="text-stone-600 hover:text-teal-700">
+											{h.text}
+										</a>
+									</li>
+								))}
+							</ul>
+						</aside>
+					)
+				}
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
