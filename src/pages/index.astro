@@ -20,38 +20,38 @@ const textos = (await getCollection('literatura')).sort(maisRecentes).slice(0, 3
 		<Header />
 		<main class="mx-auto max-w-5xl px-4 py-16">
 			<section class="text-center">
-				<h1 class="font-serif text-4xl font-semibold text-stone-900 sm:text-5xl">{SITE_TITLE}</h1>
-				<p class="mx-auto mt-4 max-w-xl text-lg text-stone-600">{SITE_DESCRIPTION}</p>
+				<h1 class="font-serif text-4xl font-semibold text-stone-900 dark:text-stone-100 sm:text-5xl">{SITE_TITLE}</h1>
+				<p class="mx-auto mt-4 max-w-xl text-lg text-stone-600 dark:text-stone-400">{SITE_DESCRIPTION}</p>
 			</section>
 
 			<section class="mt-14 grid gap-6 sm:grid-cols-2">
-				<a href="/aulas/" class="block rounded-xl border border-stone-300 p-6 hover:border-teal-600">
+				<a href="/aulas/" class="block rounded-xl border border-stone-300 dark:border-stone-700 p-6 hover:border-teal-600 dark:hover:border-teal-400">
 					<h2 class="text-xl font-semibold">Aulas</h2>
-					<p class="mt-2 text-stone-600">Matemática e Física, com vídeo, texto e exercícios.</p>
+					<p class="mt-2 text-stone-600 dark:text-stone-400">Matemática e Física, com vídeo, texto e exercícios.</p>
 				</a>
-				<a href="/literatura/" class="block rounded-xl border border-stone-300 p-6 hover:border-teal-600">
+				<a href="/literatura/" class="block rounded-xl border border-stone-300 dark:border-stone-700 p-6 hover:border-teal-600 dark:hover:border-teal-400">
 					<h2 class="font-serif text-xl font-semibold">Literatura</h2>
-					<p class="mt-2 text-stone-600">Poemas, crônicas e redações.</p>
+					<p class="mt-2 text-stone-600 dark:text-stone-400">Poemas, crônicas e redações.</p>
 				</a>
 			</section>
 
 			<div class="mt-16 grid gap-10 sm:grid-cols-2">
 				<section>
-					<h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-stone-500">Aulas recentes</h2>
+					<h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">Aulas recentes</h2>
 					<ul class="space-y-3">
 						{
 							aulas.map((aula) => (
-								<li><a href={'/aulas/' + aula.id + '/'} class="font-medium hover:text-teal-700">{aula.data.title}</a> <span class="text-sm text-stone-500"><FormattedDate date={aula.data.pubDate} /></span></li>
+								<li><a href={'/aulas/' + aula.id + '/'} class="font-medium hover:text-teal-700 dark:hover:text-teal-400">{aula.data.title}</a> <span class="text-sm text-stone-500 dark:text-stone-400"><FormattedDate date={aula.data.pubDate} /></span></li>
 							))
 						}
 					</ul>
 				</section>
 				<section>
-					<h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-stone-500">Leituras recentes</h2>
+					<h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">Leituras recentes</h2>
 					<ul class="space-y-3">
 						{
 							textos.map((texto) => (
-								<li><a href={'/literatura/' + texto.id + '/'} class="font-serif font-medium hover:text-teal-700">{texto.data.title}</a> <span class="text-sm text-stone-500"><FormattedDate date={texto.data.pubDate} /></span></li>
+								<li><a href={'/literatura/' + texto.id + '/'} class="font-serif font-medium hover:text-teal-700 dark:hover:text-teal-400">{texto.data.title}</a> <span class="text-sm text-stone-500 dark:text-stone-400"><FormattedDate date={texto.data.pubDate} /></span></li>
 							))
 						}
 					</ul>
