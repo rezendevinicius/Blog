@@ -3,14 +3,24 @@ import { getCollection, render } from 'astro:content';
 import AulaLayout from '../../layouts/AulaLayout.astro';
 
 export async function getStaticPaths() {
-	const aulas = await getCollection('aulas');
-	return aulas.map((aula) => ({ params: { slug: aula.id }, props: aula }));
+	const aulas = (await getCollection('aulas')).sort(
+		(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
+	);
+
+	return aulas.map((aula, indice) => ({
+		params: { slug: aula.id },
+		props: {
+			aula,
+			anterior: aulas[indice - 1] ?? null,
+			proxima: aulas[indice + 1] ?? null,
+		},
+	}));
 }
 
-const aula = Astro.props;
+const { aula, anterior, proxima } = Astro.props;
 const { Content, headings } = await render(aula);
 ---
 
-<AulaLayout {...aula.data} headings={headings}>
+<AulaLayout {...aula.data} headings={headings} anterior={anterior} proxima={proxima}>
 	<Content />
 </AulaLayout>

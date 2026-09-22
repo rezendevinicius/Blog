@@ -4,6 +4,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import type { CollectionEntry } from 'astro:content';
 
 interface Props {
 	title: string;
@@ -12,9 +13,11 @@ interface Props {
 	disciplina: string;
 	videoId?: string;
 	headings: { depth: number; slug: string; text: string }[];
+	anterior: CollectionEntry<'aulas'> | null;
+	proxima: CollectionEntry<'aulas'> | null;
 }
 
-const { title, description, pubDate, disciplina, videoId, headings } = Astro.props;
+const { title, description, pubDate, disciplina, videoId, headings, anterior, proxima } = Astro.props;
 const indice = headings.filter((h) => h.depth === 2);
 ---
 
@@ -46,6 +49,25 @@ const indice = headings.filter((h) => h.depth === 2);
 			<div class="mt-10 grid gap-10 lg:grid-cols-[1fr_16rem]">
 				<article class="prose prose-stone dark:prose-invert max-w-none">
 					<slot />
+
+					{
+						(anterior || proxima) && (
+							<nav class="mt-12 flex items-center justify-between gap-4 border-t border-stone-200 dark:border-stone-800 pt-6 text-sm not-prose">
+								{anterior ? (
+									<a href={'/aulas/' + anterior.id + '/'} class="text-teal-700 dark:text-teal-400 hover:underline">
+										← {anterior.data.title}
+									</a>
+								) : (
+									<span />
+								)}
+								{proxima && (
+									<a href={'/aulas/' + proxima.id + '/'} class="text-right text-teal-700 dark:text-teal-400 hover:underline">
+										{proxima.data.title} →
+									</a>
+								)}
+							</nav>
+						)
+					}
 				</article>
 
 				{
