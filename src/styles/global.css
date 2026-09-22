@@ -17,3 +17,17 @@
 		@apply bg-stone-50 font-sans text-stone-800 antialiased dark:bg-stone-950 dark:text-stone-200;
 	}
 }
+:root {
+	--pagefind-ui-primary: #0d9488;
+	--pagefind-ui-text: #292524;
+	--pagefind-ui-background: #fafaf9;
+	--pagefind-ui-border: #d6d3d1;
+	--pagefind-ui-border-radius: 0.5rem;
+	--pagefind-ui-font: theme(fontFamily.sans);
+}
+
+.dark {
+	--pagefind-ui-text: #e7e5e4;
+	--pagefind-ui-background: #0c0a09;
+	--pagefind-ui-border: #44403c;
+}

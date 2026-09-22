@@ -30,5 +30,8 @@
   },
   "allowScripts": {
     "esbuild": true
+  },
+  "devDependencies": {
+    "astro-pagefind": "^2.0.1"
   }
 }
